@@ -16,7 +16,7 @@ public class CheckBroadIndex : MonoBehaviour
             indices[i] = -1;
         }
     }
-    public void insertCircle(int column, int player_code)
+    public bool insertCircle(int column, int player_code)
     {
         bool inserted = false;
 
@@ -44,6 +44,7 @@ public class CheckBroadIndex : MonoBehaviour
                 i += 7;
             }
         }
+        return inserted;
     }
 
     public bool checkWinner(int player_code)

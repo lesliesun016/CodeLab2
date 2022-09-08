@@ -9,17 +9,21 @@ public class Player : MonoBehaviour
 
     private int turn = 0; // 0 - yellow, 1 - red; by default, yellow starts first
     private bool winner = false;
+    private int move = 0; 
 
     private void OnMouseDown()
     {
-        if (!winner)
+        if (!winner & move != 42)
         {
             int column = GetComponent<CheckMouse>().getColumn();
             if (column <= 3 & column >= -3)
             {
-                GetComponent<CheckBroadIndex>().insertCircle(column, turn);
+                bool inserted = GetComponent<CheckBroadIndex>().insertCircle(column, turn);
+                if (inserted)
+                {
+                    move += 1;
+                }
                 winner = GetComponent<CheckBroadIndex>().checkWinner(turn);
-
                 if (winner)
                 {
                     if (turn == 0)
@@ -48,6 +52,10 @@ public class Player : MonoBehaviour
                 }
                 
             }
-        }
+        } else if (move >= 42)
+        {
+            ui.GetComponent<Text>().text = "tie";
+            ui.GetComponent<Text>().color = Color.black;
+        } 
     }
 }
